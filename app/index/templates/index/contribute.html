@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Contribute to the database | Obscura</title>
+        <meta name="description" content="Contribute to the database by adding new movies.">
+    </head>
+    <body>
+        <header>
+            <h1><a href="{% url 'index:index' %}">Obscura</a></h1>
+            <h5>One of the aggregators of all time!</h5>
+        </header>
+        <h2>Contribute to the database</h2>
+        <p>Please use the form below to provide information about the movie you want to add.</p>
+        <form action="{% url 'index:contribute' %}" method="post">
+            {% csrf_token %}
+            <fieldset>
+                {% for field in form %}
+                <div>
+                    {{ field.label_tag }} {{ field }}
+                </div>
+                {% endfor %}
+            </fieldset>
+            <input type="submit" value="Submit">
+        </form>
+        {% if status == "success" %}
+        <p><b>Your entry has been successfully recorded. We appreciate the effort.</b></p>
+        {% elif status == "failure" %}
+        <p><b>There was an error while trying to process your entry and no data was saved.</b></p>
+        {% endif %}
+    </body>
+</html>

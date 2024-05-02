@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Main page | Obscura</title>
+        <meta name="description" content="Obscura - One of the aggregators of all time!">
+    </head>
+    <body>
+        <header>
+            <h1><a href="{% url 'index:index' %}">Obscura</a></h1>
+            <h5>One of the aggregators of all time!</h5>
+        </header>
+        <h2>Overview</h2>
+        {% if movie_count %}
+            {% if movie_count > 5 %}
+                <p>Our database is currently housing {{movie_count}} entries! Some examples below:</p>
+            {% else %}
+                <p>Our database is currently housing {{movie_count}} entries! They are:</p>
+            {% endif %}
+            <ul>
+            {% for movie in movie_sample %}
+                <li><a href="{% url 'index:movie' movie.movieid %}">{{ movie.title }} ({{ movie.year }})</a></li>
+            {% endfor %}
+            </ul>
+            <p>Become a part of the project by <a href="/contribute">adding new movies</a>!</p>
+        {% else %}
+            <p>Our database is empty at the moment, but you can contribute by <a href="/contribute">adding new movies</a>!</p>
+        {% endif %}
+    </body>
+</html>

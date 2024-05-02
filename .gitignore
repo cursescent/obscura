@@ -1,0 +1,5 @@
+__pycache__/
+/python_virtual/
+/app/app/init.conf
+*.sqlite3
+migrations/

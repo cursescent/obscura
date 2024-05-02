@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ movie.title }} ({{ movie.year }}) | Obscura</title>
+        <meta name="description" content="Information about {{ movie.title }} ({{ movie.year }}) movie.">
+    </head>
+    <body>
+        <header>
+            <h1><a href="{% url 'index:index' %}">Obscura</a></h1>
+            <h5>One of the aggregators of all time!</h5>
+        </header>
+        <h2>Information</h2>
+        <ul>
+            <li>
+                <p><b>Title:</b> {{ movie.title }}</p>
+            </li>
+            <li>
+                <p><b>Year of release:</b> {{ movie.year }}</p>
+            </li>
+            <li>
+                <p><b>Genres:</b> {{ movie.genres }}</p>
+            </li>
+            <li>
+                <p><b>Running time:</b> {{ movie.duration }} minutes</p>
+            </li>
+            <li>
+                <p><b>Credits</b></p>
+                <ul>
+                    <li>
+                        <p><b>Director:</b> {{ movie.director }}</p>
+                    </li>
+                    <li>
+                        <p><b>Writer:</b> {{ movie.writer }}</p>
+                    </li>
+                    <li>
+                        <p><b>Producer:</b> {{ movie.producer }}</p>
+                    </li>
+                    <li>
+                        <p><b>Starring:</b> {{ movie.starring }}</p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p><b>Aggregated sources:</b><p>
+                <ul>
+                    {% for source in movie.sources %}
+                    <li>
+                        {% if source.code %}
+                        <p><a href="{{ source.url }}">{{ source.name }}</a></p>
+                        {% else %}
+                        <p>Local information and reviews</p>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                    </p><a href="{{ entry.url }}">{{ entry.source }}</a></p>
+                </ul>
+            </li>
+        </ul>
+        <h2>Reviews</h2>
+        {% if reviews %}
+        {% for review in reviews %}
+        <div>
+            <h5><b>Rating:</b> {{ review.rating}}/10</h5>
+            {% if review.text %}
+            <p>{{ review.text }}</p>
+            {% else %}
+            <p><b>This review has no text!</b></p>
+            {% endif %}
+            <p>(from <a href="{{ review.url }}">{{ review.source }}</a>)</p>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div>
+            <p><b>There are currently no reviews for this movie!</b></p>
+        </div>
+        {% endif %}
+    </body>
+</html>
